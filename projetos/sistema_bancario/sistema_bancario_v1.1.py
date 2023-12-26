@@ -15,7 +15,7 @@ def menu():
     [lc]\tListar contas
     [nu]\tNovo Usuário
     [q]\tSair
-    => '''
+    '''
     return input(textwrap.dedent(menu))
 
 # Função que recebe apenas argumentos posicionais
@@ -61,10 +61,12 @@ def exibir_extrato(saldo, /, *, extrato):
     print(f'\nSaldo: R$ {saldo:.2f}')
     print(30 * '-')
 
+# Função que filtra se existem usuarios já cadastrados com tal CPF
 def filtrar_usuario(cpf, usuarios):
     usuarios_filtrados = [usuario for usuario in usuarios if usuario["cpf"]==cpf]
     return usuarios_filtrados[0] if usuarios_filtrados else None
-    
+
+# Função que cria um novo usuário
 def criar_usuario(usuarios):
     cpf = input('Informe o CPF (somente números): ')
     usuario = filtrar_usuario(cpf, usuarios)
@@ -81,6 +83,7 @@ def criar_usuario(usuarios):
     
     print('=== Usuário criado com sucesso! ===')
 
+# Função que cria uma nova conta
 def criar_conta(agencia, numero_conta, usuarios):
     cpf = input('Informe o CPF do usuário: ')
     usuario = filtrar_usuario(cpf, usuarios)
@@ -90,7 +93,8 @@ def criar_conta(agencia, numero_conta, usuarios):
         return {"agencia": agencia, "numero_conta": numero_conta, "usuario": usuario}
 
     print("\n=== Usuário não encontrado, fluxo de criação encerrado!... ===")
-    
+
+# Função que lista todas as contas criadas na sessão
 def listar_contas(contas):
     for conta in contas:
         linha = f"""\
@@ -100,7 +104,8 @@ def listar_contas(contas):
         """
         print("="*30)
         print(textwrap.dedent(linha))
-    
+
+# Código principal da aplicação
 def main():
     LIMITE_SAQUES = 3
     AGENCIA = '0001' 
@@ -152,6 +157,6 @@ def main():
             print(('Saindo...').center(30, '-'))
         
         else:
-            print('\nOperacao invalida, selecione a opcao novamente!')
-            
+            print('\nOperacao invalida, selecione a opcão novamente!')
+
 main()
